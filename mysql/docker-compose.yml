@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8
+    command: ['mysqld', '--character-set-server=utf8mb4', '--default-time-zone=+07:00']
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./apps/script:/script
+      - ./apps/script/my.conf:/etc/mysql/conf.d/my.conf
+      - ./apps/init:/docker-entrypoint-initdb.d:ro,z
+    environment:
+      - TZ=Asia/Bangkok
+      - MYSQL_ROOT_PASSWORD=eit*132
+  adminer:
+    image: adminer
+    restart: always
+    depends_on: 
+      - mysql
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    ports:
+      - 8080:8080
+
+volumes:
+  mysql_data:

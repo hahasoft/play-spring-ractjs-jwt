@@ -1,0 +1,37 @@
+server:
+  port: 9090
+  
+spring:
+  application:
+    name: spring-boot-jwt
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/jwt_security
+    username: jwt
+    password: jwt132
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database:  mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  websecurity:
+    debug: true
+
+app:
+  jwt:
+    secret: d7396790914d4374cbaa62c0f4eccf67848018a0d315c825e8bf5db779ccf433
+    expirationInMs: 86400000  
+    refresh-token:
+      expirationInMs: 86400000
+
+logging:
+  level:
+    org.springframework.security: debug
+
